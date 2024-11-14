@@ -1,8 +1,8 @@
-# Spatially differentiable convolutional neural network (SDCNN) for robot pose prediction.
+# SDCNN (Spatially Differentiable Convolutional Neural Network) for robot pose prediction.
 
 <img src="./data/SDCNN_workflow.png" width=30% height=30%>
 
-**Author:** Alexander (Aleks) E. Siemenn
+**Author:** Alexander (Aleks) E. Siemenn <asiemenn@mit.edu>
 
 ## Overview
 
@@ -21,11 +21,13 @@ Integrating autonomous contact-based robotic characterization into self-driving 
 ## Requirements
 
 To run the code in this repository, you will need the following dependencies:
-- Python >= 3.7
-- PyTorch >= 1.7
-- Numpy
-- Matplotlib
-- Joblib
+- Python >= 3.9
+- joblib==1.1.0
+- matplotlib==3.8.3
+- numpy==1.26.4
+- torch==2.2.1+cpu
+- requests==2.31.0
+- opencv-python==4.9.0
 
 Install all dependencies using:
 ```bash
