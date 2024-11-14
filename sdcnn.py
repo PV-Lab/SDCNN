@@ -65,7 +65,7 @@ def loadNetwork(filename, folder, device, k_poses=3, scale_factor=0.15):
     return weightsSDCNN
 
 
-def predictPoses(shapes, SDCNN, erode=10, device='cpu'):
+def predictPoses(shapes, SDCNN, erode=10, device='cpu', augment=True):
     """Predict poses from given shapes using the SDCNN model.
 
     Args:
@@ -73,6 +73,7 @@ def predictPoses(shapes, SDCNN, erode=10, device='cpu'):
         SDCNN (nn.Module): Loaded SDCNN model.
         erode (int, optional): Erosion kernel size. Defaults to 10.
         device (str, optional): Device to run the computation on. Defaults to 'cpu'.
+        augment (bool, optional): Augments outputs using multiple predictions for better performance.
 
     Returns:
         ndarray: Predicted poses.
@@ -88,13 +89,24 @@ def predictPoses(shapes, SDCNN, erode=10, device='cpu'):
         W, H = img.shape  # Get width and height
         img_eroded = torch.tensor(cv2.erode(img.numpy(), np.ones((erode, erode), np.uint8))).to(device)  # Apply erosion and move to device
         pose = np.empty((0, 3))  # Initialize pose array
-        output = SDCNN(img_eroded.view(1, 1, W, H))  # Get model output
-        k_poses = output.shape[-1] // 3  # Number of poses
-        for k in range(k_poses):
-            out = [output[:, k * 2].item(),  # x-coordinate
-                   output[:, k * 2 + 1].item(),  # y-coordinate
-                   output[:, k_poses * 2 + k].item() / 3]  # theta rotation (divided by 3, the model predicts theta*3)
-            pose = np.vstack((pose, out))  # Stack pose
+        if augment:
+            output = SDCNN(torch.tensor(np.array([img_eroded]*4)).reshape(4,1,200,200)) # augment output with multiple (4) predictions
+            k_poses = output.shape[-1] // 3  # Number of poses
+            selection = np.array([np.random.choice(int(output.shape[0]), k_poses, replace=False),np.random.choice(k_poses, k_poses, replace=False)]).T # select k_pose number of outputs from set of augmented predictions
+            for n,k in selection:
+                out = [output[n, k * 2].item(),  # x-coordinate
+                       output[n, k * 2 + 1].item(),  # y-coordinate
+                       output[n, k_poses * 2 + k].item() / 3]  # theta rotation (divided by 3, the model predicts theta*3)
+                pose = np.vstack((pose, out))  # Stack pose
+
+        else:
+            output = SDCNN(img_eroded.view(1, 1, W, H))  # Get model output
+            k_poses = output.shape[-1] // 3  # Number of poses
+            for k in range(k_poses):
+                out = [output[:, k * 2].item(),  # x-coordinate
+                       output[:, k * 2 + 1].item(),  # y-coordinate
+                       output[:, k_poses * 2 + k].item() / 3]  # theta rotation (divided by 3, the model predicts theta*3)
+                pose = np.vstack((pose, out))  # Stack pose
         poses.append(pose)  # Add pose to list
     return np.array(poses)  # Return poses as array
 
