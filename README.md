@@ -1,6 +1,6 @@
 # SDCNN (Spatially Differentiable Convolutional Neural Network) for robot pose prediction.
 
-<img src="./data/SDCNN_workflow.png" width=30% height=30%>
+![./data/SDCNN_workflow.png](./data/SDCNN_workflow.png)
 
 **Author:** Alexander (Aleks) E. Siemenn <asiemenn@mit.edu>
 
@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 ## Quick Start
 1. Run [examples.ipynb](./examples.ipynb) for a self-contained example usage of the SDCNN.
-2. Training data preparation: Download input data files from the data directory [https://osf.io/download/c6xtg](https://osf.io/download/c6xtg) 
+2. Training data preparation: Download input data files (augmented_dataset_fastSAM.pkl) from the data directory [https://osf.io/download/c6xtg](https://osf.io/download/c6xtg) 
 3. Run the training script:
 ```bash
 python training/training.py
@@ -48,4 +48,4 @@ Our convolutional neural network (CNN) is designed with a spatially differentiab
 ## Results
 This approach achieves a 20.0% improvement in valid pose generation compared to existing models, with a throughput of 125 measurements per hour for photoconductivity characterization across semiconductor materials. Results from the [examples.ipynb](./examples.ipynb) are shown for input shape priors of varying convexity and sharpness.
 
-<img src="./data/SDCNN_predicted_poses_differentiable" width=30% height=30%>
+![./data/SDCNN_predicted_poses_differentiable.png](./data/SDCNN_predicted_poses_differentiable.png)
