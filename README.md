@@ -15,7 +15,7 @@ Integrating autonomous contact-based robotic characterization into self-driving 
 | [examples.ipynb](./examples.ipynb)         | Jupyter notebook demonstrating the pipeline and usage examples of the self-supervised convolutional neural network for robotic characterization.|
 | [sdcnn.py](./sdcnn.py)                | Python module defining the architecture of the self-supervised convolutional neural network with spatially differentiable loss function.       |
 | [utils.py](./utils.py)                | Utility functions used across the pipeline, including data preprocessing, image handling, and metrics calculations.                            |
-| [data](./data)                    | Directory containing input data files and datasets for training and validation (note: large datasets should be downloaded separately if needed).|
+| [data](./data)                    | Directory where data automatically downloads to for running the models within [examples.ipynb](./examples.ipynb).|
 | [training/training.py](./training/training.py)    | Python script for training the SDCNN model, including loading datasets, defining loss functions, and logging results during model training.      |
 
 ## Requirements
