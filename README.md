@@ -46,6 +46,6 @@ python training/training.py
 Our convolutional neural network (CNN) is designed with a spatially differentiable loss function to ensure pixel-level accuracy in contact-based robotic positioning. The network is self-supervised, enabling it to learn optimal poses for robotic contact without the need for extensive labeled datasets. We incorporate shape priors to enhance the robustness and accuracy of predicted poses.
 
 ## Results
-All results and model weights can be found on the [public OSF repository](https://osf.io/sdy7k/). This approach achieves a 20.0% improvement in valid pose generation compared to existing models, with a throughput of 125 measurements per hour for photoconductivity characterization across semiconductor materials. Differential map results with output predicted poses from the [examples.ipynb](./examples.ipynb) are shown for input shape priors of varying convexity and sharpness.
+All results and model weights can be found on the [public OSF repository](https://osf.io/sdy7k/). This approach achieves a 20.0% improvement in valid pose generation compared to existing models, with a throughput of 125 measurements per hour for photoconductivity characterization across semiconductor materials. Results of predicted poses onto shape priors of varying convexity and sharpness from [examples.ipynb](./examples.ipynb).
 
-![./data/SDCNN_predicted_poses_differentiable.png](./data/SDCNN_predicted_poses_differentiable.png)
+![./data/SDCNN_predicted_poses.png](./data/SDCNN_predicted_poses.png)
